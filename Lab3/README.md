@@ -192,7 +192,7 @@ Se puede ver el certificado SSL:
 
 ![Certificado](https://user-images.githubusercontent.com/60147093/190935049-71df96bf-5f76-4e3d-ad2d-ab7ac1ac9a32.PNG)
 
-# 5. Información relevante
+# 4. Información relevante
 
 ## Referencias:
 - https://github.com/st0263eafit/st0263-2022-2/tree/main/docker-nginx-wordpress-ssl-letsencrypt
