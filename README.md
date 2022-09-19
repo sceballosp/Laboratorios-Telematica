@@ -1,17 +1,8 @@
-## Acerca de:
+# Información de la materia:
+ST0263 - Tópicos Especiales en Telemática
 
-Este laboratorio es una implementacion de un mini servidor http con sockets, el cual se encuentra desplegado en una instancia de AWS.
+# Estudiante:
+Samuel Ceballos Posada, sceballosp@eafit.edu.co
 
-El servidor permite recuperar recursos almacenados en la instancia dentro del directorio /server.
-
-En caso de encontrar el archivo el servidor devuelve el archivo junto con un mensaje codigo 200, de lo contrario devuelve un error 404 indicando que no encontro el archivo.
-
-## Como correr:
-
-Acceder desde un navegador o cliente a la direccion ip 44.209.218.161
-
-Recuersos disponibles:
-
-- index.html
-- helloWorld.pdf
-  hello
+# Profesor:
+Edwin Nelson Montoya Munera, [emontoya@eafit.edu.co](mailto:emontoya@eafit.edu.co)
