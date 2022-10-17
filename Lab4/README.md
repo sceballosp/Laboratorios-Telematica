@@ -344,6 +344,19 @@ sudo mount 10.128.0.53:/mnt/nfs_share /mnt/nfs_clientshare
 
 Verifique el funcionamiento:
 
+- En el NFS server:
+```
+cd /mnt/nfs_share/
+sudo touch sample1.text sample2.text
+```
+
+- En los wordpress:
+```
+ls -l /mnt/nfs_clientshare/
+```
+
+Resultados:
+
 ![nfs1](https://user-images.githubusercontent.com/60147093/196300099-3d2d7dc7-18cc-4852-ae9c-06251edb3611.PNG)
 
 ![nfs2](https://user-images.githubusercontent.com/60147093/196300100-d8e6f4e1-75b8-47da-8420-fb5069164a63.PNG)
@@ -352,8 +365,115 @@ Verifique el funcionamiento:
 
 
 ## Configuración de la Base de datos:
+Instalar docker y docker-compose:
+```
+sudo apt install docker.io -y
+sudo apt install docker-compose -y
+```
+
+Crear un directorio para el contenedor de Docker:
+```
+mkdir Docker
+```
+
+Acceder al directorio creado anteriormente y crear los siguientes archivos:
+
+- Dockerfile con el siguiente contenido:
+```
+FROM mysql:8.0
+```
+
+- docker-compose.yaml con el siguiente contenido:
+```
+version: "3.7"
+services:
+  mysql:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dbserver
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: "1234"
+      MYSQL_DATABASE: "wordpressdb"
+    volumes:
+      - ./schemas:/var/lib/mysql:rw
+volumes:
+  schemas: {}
+```
+
+Inicializar Docker:
+```
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -a -G docker sceballosp
+```
+
+Correr el contenedor con MySQL y acceder:
+```
+sudo docker-compose up --build -d
+sudo docker exec -it dbserver mysql  -p
+```
+
+Crear la base de datos y los usuarios:
+
+![database](https://user-images.githubusercontent.com/60147093/196304056-8447d722-7a42-442b-8074-c650a694913e.PNG)
 
 
+## Configuración de los wordpress:
+
+Repetir los siguientes pasos para cada instancia
+
+Instalar docker y docker-compose:
+```
+sudo apt install docker.io -y
+sudo apt install docker-compose -y
+
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo usermod -a -G docker sceballosp
+```
+
+Detener los servicios de nginx:
+```
+sudo systemctl disable nginx
+sudo systemctl stop nginx
+```
+
+Crear un directorio para el contenedor de Docker:
+```
+mkdir Docker
+```
+
+Acceder al directorio creado anteriormente y crear el siguiente archivo:
+
+- docker-compose.yaml con el siguiente contenido:
+```
+version: '3.7'
+services:
+  wordpress:
+    container_name: wordpress
+    image: wordpress:latest
+    restart: always
+    environment:
+      WORDPRESS_DB_HOST: 10.128.0.54:3306
+      WORDPRESS_DB_USER: cms1
+      WORDPRESS_DB_PASSWORD: 1234
+      WORDPRESS_DB_NAME: wpdb
+    volumes:
+      - /var/www/html:/var/www/html
+    ports:
+      - 80:80
+volumes:
+  wordpress:
+```
+
+Correr el contenedor de wordpress:
+```
+sudo docker-compose up --build -d
+```
 
 ## Resultados
 Ingresar a https://lab4.sceballosp.tk
