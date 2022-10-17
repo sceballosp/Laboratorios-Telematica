@@ -67,13 +67,13 @@ Se utilizaron contenedores Docker para la instalación de Wordpress, MySQL y Ngi
 ![Freenom](https://user-images.githubusercontent.com/60147093/190935004-0951fdce-8c41-4871-8dbc-ead82a190ff4.PNG)
 
 ## Configuración del Balanceador:
-### Conectarse a la instancia por SSH:
+### 1. Conectarse a la instancia por SSH:
 - Acceder a la consola de GCP.
 - Dar click en **Compute Engine**.
 - Dar click en **VM Instances**.
 - Dar click en el botón *SSH* de la instancia deseada. 
 
-### Instalar certbot, let's encrypt y nginx:
+### 2. Instalar certbot, let's encrypt y nginx:
 Usar los siguientes comandos:
 ```
 sudo apt update
@@ -82,7 +82,7 @@ sudo -H pip3 install certbot
 sudo apt install letsencrypt -y
 sudo apt install nginx -y
 ```
-### Configurar nginx.conf
+### 3. Configurar nginx.conf
 
 Entrar al archivo de configuración:
 ```
@@ -120,7 +120,7 @@ sudo nginx -t
 sudo service nginx reload
 ```
 
-### Pedir los certificados ssl
+### 4. Pedir los certificados ssl
 Ejecutar el siguiente comando para certificados específicos (ej. www):
 ```
 sudo letsencrypt certonly -a webroot --webroot-path=/var/www/letsencrypt -m sceballosp@eafit.edu.co --agree-tos -d lab4.sceballosp.tk
@@ -131,7 +131,7 @@ sudo certbot --server https://acme-v02.api.letsencrypt.org/directory -d *.scebal
 ```
 - **IMPORTANTE:** Al ejecutar el comando anterior hay un periodo de espera en el que se debe agregar un registro TXT en el DNS para que funcione. 
 
-### Configuración de archivos:
+### 5. Configuración de archivos:
 Crear carpeta para los certificados:
 ```
 mkdir -p nginx/ssl
@@ -182,7 +182,7 @@ cp /etc/letsencrypt/live/sceballosp.tk/* /home/sceballosp/nginx/ssl/
 exit
 ```
 
-### Configuración de Docker
+### 6. Configuración de Docker
 Instalar docker, docker-compose y git:
 ```
 sudo apt install docker.io -y
@@ -278,6 +278,82 @@ Inicializar Docker:
 ```
 docker-compose up --build -d
 ```
+
+## Configuración del servidor NFS:
+### 1. Instalar el NFS server:
+Instalar el servidor NFS en la instancia del servidor:
+```
+sudo apt update
+sudo apt install nfs-kernel-server
+```
+
+Crear carpeta para compartir archivos en el servidor NFS:
+```
+sudo mkdir -p /mnt/nfs_share
+sudo chown -R nobody:nogroup /mnt/nfs_share/
+sudo chmod 777 /mnt/nfs_share/
+```
+
+Acceder al archivo ***exports***:
+```
+sudo nano /etc/exports
+```
+
+Agregar la siguiente linea al archivo anterior:
+(Asegurarse de poner la subred donde se encuentran ambas maquinas con el wordpress)
+```
+/mnt/nfs_share 10.128.0.0/20(rw,sync,no_subtree_check)
+```
+
+Actualizar las reglas de firewall para permintir el protocolo NFS:
+```
+sudo exportfs -a
+sudo systemctl restart nfs-kernel-server
+sudo ufw allow from 10.128.0.0/20 to any port nfs
+sudo ufw enable
+sudo ufw status
+```
+
+### 2. Instalar NFS en las instancias de wordpress:
+Instalar nginx en las dos instancias que tendran el wordpress:
+```
+sudo apt update
+sudo apt install nginx -y
+```
+
+Instalar NFS en cada instancia:
+```
+sudo apt install nfs-common -y
+```
+
+Acceder al archivo ***fstab*** dentro del directorio /etc/fstab y agregar la siguiente linea:
+(asegurarse de usar la direccion IP privada del servidor NFS)
+```
+10.128.0.53:/mnt/nfs_share /var/www/html nfs auto 0 0
+```
+
+Crear directorio donde se compartiran los archivos (en ambas instancias):
+```
+sudo mkdir -p /mnt/nfs_clientshare
+```
+
+Hacer la conexion con el servidor NFS (en ambas instancias):
+```
+sudo mount 10.128.0.53:/mnt/nfs_share /mnt/nfs_clientshare
+```
+
+Verifique el funcionamiento:
+
+![nfs1](https://user-images.githubusercontent.com/60147093/196300099-3d2d7dc7-18cc-4852-ae9c-06251edb3611.PNG)
+
+![nfs2](https://user-images.githubusercontent.com/60147093/196300100-d8e6f4e1-75b8-47da-8420-fb5069164a63.PNG)
+
+![nfs3](https://user-images.githubusercontent.com/60147093/196300102-43b871e9-aa32-43ec-92aa-f894da5260a4.PNG)
+
+
+## Configuración de la Base de datos:
+
+
 
 ## Resultados
 Ingresar a https://lab4.sceballosp.tk
