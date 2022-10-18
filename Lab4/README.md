@@ -478,9 +478,10 @@ sudo docker-compose up --build -d
 ## Resultados
 Ingresar a https://lab4.sceballosp.tk
 
-
+![resultado](https://user-images.githubusercontent.com/60147093/196323702-bcda0eb6-f075-4acc-8532-3de8cb2c92bf.PNG)
 
 Se puede ver el certificado SSL:
+![certificado](https://user-images.githubusercontent.com/60147093/196323707-fc543224-a301-4270-bb56-4c41efc45db7.PNG)
 
 
 # 4. Información relevante
@@ -489,3 +490,4 @@ Se puede ver el certificado SSL:
 - https://github.com/st0263eafit/st0263-2022-2/tree/main/docker-nginx-wordpress-ssl-letsencrypt
 - https://www.letscloud.io/community/how-to-set-up-an-nginx-with-certbot-on-ubuntu
 - https://geekrewind.com/setup-lets-encrypt-wildcard-on-ubuntu-20-04-18-04/
+- https://linuxhint.com/install-and-configure-nfs-server-ubuntu-22-04/
