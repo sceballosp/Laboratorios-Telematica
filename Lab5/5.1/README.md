@@ -68,11 +68,15 @@ Finalmente dele click a ***crear*** para finalizar la configuracion del cluster.
 ### Conexion via SHH:
 - Descargar el par de claves creado anteriormente en formato .pkk y acceder al cluster via SSH:
 
+![5-1-9](https://user-images.githubusercontent.com/60147093/200115300-9b298d8b-f0d0-44ee-9cdc-41a6d073980e.PNG)
 
 ### Conexion via HUE:
 - Crear un usuario **hadoop** con cualquier clave:
 
+![5-1-7](https://user-images.githubusercontent.com/60147093/200115297-cfc4fe58-7568-4297-b752-b33c3e56e967.PNG)
+
 - Ingresar:
+![5-1-8](https://user-images.githubusercontent.com/60147093/200115299-18c92318-9db4-4184-9485-04834fcdeae8.PNG)
 
 
 # 4. Información relevante
