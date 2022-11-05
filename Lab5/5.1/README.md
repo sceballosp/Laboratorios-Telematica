@@ -19,15 +19,15 @@ Crear un Cluster AWS EMR en Amazon con activacion de HUE con usuario hadoop.
 Todo lo propuesto ha sido implementado.
 
 # 2. información general de diseño
-Se utilizo AWS para la creacion del cluster en EMR posteriomente se activa HUE con usuario hadoop.
+Se utilizo AWS para la creacion del cluster en EMR y posteriomente se activa HUE con usuario hadoop.
 
 # 3. Descripción del ambiente de desarrollo y técnico:
 
 ## Detalles técnicos
 - AWS: servicio para desplegar las instancias.
-- HUE: es una interfaz de usuario web para la gestión de Hadoo.
-- EMR: es una plataforma de clúster administrada.
-- Hadoop:  entorno de trabajo para software, bajo licencia libre, para programar aplicaciones distribuidas que manejen grandes volúmenes de datos.
+- HUE: es una interfaz grafica para la gestion de datos.
+- EMR: es una plataforma de clúster que ayuda a correr frameworks de datos como Hadoop.
+- Hadoop: entorno de trabajo para software, bajo licencia libre, para programar aplicaciones distribuidas que manejen grandes volúmenes de datos.
 
 ## Descripción y cómo se configura los parámetros del proyecto 
 ### Crear un cluster en EMR en AWS:
