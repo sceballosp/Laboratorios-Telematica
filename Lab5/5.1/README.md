@@ -76,6 +76,7 @@ Finalmente dele click a ***crear*** para finalizar la configuracion del cluster.
 ![5-1-7](https://user-images.githubusercontent.com/60147093/200115297-cfc4fe58-7568-4297-b752-b33c3e56e967.PNG)
 
 - Ingresar:
+
 ![5-1-8](https://user-images.githubusercontent.com/60147093/200115299-18c92318-9db4-4184-9485-04834fcdeae8.PNG)
 
 
