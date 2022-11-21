@@ -76,7 +76,7 @@ Verificar que si se hayan guardado los archivos:
 
 ## Parte 2:
 ### Replicar, ejecutar y entender el notebook Data_processing_using_PySpark.ipynb con los datos respectivos y ejecutelo en AWS EMR.
-Crear un nuevo jupyter notebook (Ver archivo: )
+Crear un nuevo jupyter notebook (Ver archivo: [Data_processing_using_PySpark.ipynb](https://github.com/sceballosp/Laboratorios-Telematica/blob/main/Lab6/Data_processing_using_PySpark.ipynb))
 
 Cambiar version de python:
 
