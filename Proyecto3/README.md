@@ -198,4 +198,3 @@ El analisis se hizo en dos notebooks distintos, cargando los datos desde Google 
 ## Referencias:
 
 - https://github.com/st0263eafit/st0263-2022-2/tree/main/bigdata/03-spark
-- https://github.com/st0263eafit/st0263-2022-2/tree/main/bigdata/04-hive-sparksql
